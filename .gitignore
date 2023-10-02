@@ -1,0 +1,11 @@
+node_modules/
+npm-debug.log
+.env
+.env.local
+package-lock.json
+.vscode/
+logs/
+*.log
+*.log.*
+.log
+
