@@ -10,35 +10,102 @@
 </head>
 
 <body>
+    <div style="background-image: url(../cover-img.jpg); background-size: cover;" class="p-5">
+        <h2 class="text-center mb-5">Live better and longer.</h2>
+        <p class="fs-4 lh-lg">Studies have shown that owning a pet can have numerous health benefits for their owners.
+            Interacting with pets can help reduce stress, lower blood pressure, and release endorphins (feel-good
+            hormones) in the brain. Additionally, the companionship of a pet can reduce feelings of loneliness and
+            depression, leading to improved mental well-being. The act of caring for a pet also encourages physical
+            activity and can promote a sense of purpose and routine in a person's life.
+        </p>
+        <p class="fs-4 lh-lg">
+            Not to mention the addition a pet brings to a family and the memories that they help create.
+        </p>
+    </div>
+    <div id="carouselExampleIndicators" class="carousel slide bg-success-subtle">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item text-center mt-5 mb-5 active">
+                <h2>Choose Team Cat if you:</h2>
+                <ul class="m-5 fs-4">
+                    <li>Enjoy quiet weekends curled up with a book</li>
+                    <li>Prefer independent pets that don't need as much attention</li>
+                    <li>Like your pets to be really fluffy and cute</li>
+                </ul>
+            </div>
+            <div class="carousel-item text-center mt-5 mb-5">
+                <h2>Choose Team Dog if you:</h2>
+                <ul class="m-5 fs-4">
+                    <li>Need a more active and playful companion</li>
+                    <li>Enjoy peace of mind by having an extra ear for danger</li>
+                    <li>Want to take a friend on hiking trips</li>
+                </ul>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
     <div class="container p-2">
-        <h1 class="text-center">Choose Your Team</h1>
         <div class="row">
             <div class="col-sm-6">
-                <div class="card">
+                <div class="card shadow-sm">
                     <img src="../home-cat.jpg" class="card-img-top" alt="cat-pic" style="height: 600px;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Cats</h5>
-                        <p class="card-text">Independent, yet cute and fluffy felines make excellent pets.</p>
-                        <p>Photo by Raoul Droog on Unsplash</a>
-                        </p>
-                        <a href="#" class="btn btn-primary">Team Cat</a>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Cats</h5>
+                        <p>Advantages:</p>
+                        <ul>
+                            <li>Independent without much supervision</li>
+                            <li>Cute and fluffy fur is great for petting</li>
+                            <li>Said to have a sense for spiritual connections</li>
+                        </ul>
+                        <p>Disadvantages:</p>
+                        <ul>
+                            <li>Becomes less playful as time goes on</li>
+                            <li>Known to get stuck in tight or narrow spaces</li>
+                        </ul>
+                        <a href="#" class="btn btn-success">Join Team Cat</a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card">
+                <div class="card shadow-sm">
                     <img src="../home-dog.jpg" class="card-img-top" alt="dog-pic" style="height: 600px;">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Dogs</h5>
-                        <p class="card-text">Playful, loyal and protective to a fault, canines are man's best friend.
-                        </p>
-                        <p>Photo by Charles Deluvio on Upsplash</p>
-                        <a href="#" class="btn btn-primary">Team Dog</a>
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Dogs</h5>
+                        <p>Advantages:</p>
+                        <ul>
+                            <li>Playful, protective and fiercely loyal</li>
+                            <li>Great as companions on long trips</li>
+                            <li>Some breeds are natural hunters</li>
+                        </ul>
+                        <p>Disadvantages:</p>
+                        <ul>
+                            <li>Easily swayed by steaks and cookies</li>
+                            <li>Known to bark at dangerous plastic bags</li>
+                        </ul>
+                        <a href="#" class="btn btn-success">Join Team Dog</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <footer class="bg-success-subtle p-2">
+        <p>&copy;Paws & Tails 2023</p>
+        <p>Photos by Charles Deluvio, Raoul Droog and Andrew S. on Upsplash</p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
