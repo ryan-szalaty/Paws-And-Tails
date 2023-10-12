@@ -10,190 +10,210 @@
 </head>
 
 <body>
+    <!--Redirect users to a profile page instead!-->
     <%- include('../partials/nav') %>
-    <div style="background-image: url(../top-img.jpg); background-position: center; background-size: cover; height: 100vh; position: relative;" class="p-5">
-        <p style="position: absolute; top: 50%; left: 5%;" class="text-white fs-3 fst-italic">
-            Find the friend that
-        </p>
-        <p style="position: absolute; top: 55%; left: 5%;" class="text-white fs-3 fst-italic">
-            you've always wanted.
-        </p>
-    </div>
-    <div class="container">
-        <div class="row d-flex align-items-center">
-          <div class="col-md-6 fs-2 text-center">
-            Do you...
-          </div>
-          <div class="col-md-6 fs-4 p-4">
-            <ul style="list-style-type: circle;">
-                <li>have a little bit of extra space in your home?</li>
-                <li>like the idea of sharing your lifestyle (and maybe a secret handshake)?</li>
-                <li>wish someone could come with you on longer trips?</li>
-                <li>enjoy being with yourself, but would like something extra?</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    <div id="carouselExampleAutoplaying" class="carousel slide bg-success-subtle p-5" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item mt-5 mb-5 active">
-            <p class="fs-4 fst-italic lh-lg text-center">
-                When I got Max from the pound, he just looked at me with those marbly eyes and a masterful puppydog face.
-                Normally, I am immune to the I-am-cute thing from friends' pets, but 
-                I was smitten the second my eyes met his.
-            </p>
-            <p class="fs-4">
-                - Darrel, 43
-            </p>
-          </div>
-          <div class="carousel-item mt-5 mb-5">
-            <p class="fs-4 fst-italic lh-lg text-center">
-                I used to have bad nightmares from my time fighting overseas. Chica would always come to my bed whenever she heard me 
-                having an episode. Sometimes I even yelled at her for staring at me. But she always stayed by my side.
-            </p>
-            <p class="fs-4">
-                - Conner, 32
-            </p>
-          </div>
-          <div class="carousel-item mt-5 mb-5">
-            <p class="fs-4 fst-italic lh-lg text-center">
-                I can just do whatever I need to do and let her run around as she pleases. She comes back around dinnertime and
-                lazes around the house. Sometimes she even sits with me while I read or watch TV. It's like she wants to 
-                spend time with me that way.
-            </p>
-            <p class="fs-4">
-                - Grace, 26
-            </p>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-    <div style="background-image: url(../banner-img.jpg); background-size: cover;" class="p-5">
-        <h2 class="text-center mb-5">Unforgettable Memories</h2>
-        <p class="fs-4 lh-lg">
-            We can all remember a time when a curious, fluffy face approached us and nestled its face
-            into our chest. We couldn't help but pet it! Pets bring the possibility of wonderful, irreplaceable 
-            memories. From childhood friends to service animals that aid those in need, having one of these
-            cute little furballs in your home definitely makes it feel more like a home!
-        </p>
-    </div>
-    <div class="bg-success-subtle p-5">
-        <h2 class="text-center mb-5">Unconditional Love</h2>
-        <p class="fs-4 lh-lg">
-            Pets don't judge their owners based on their appearance, flaws, or mistakes.
-            They accept their human companions exactly as they are. Many even embrace them!
-            Even when a pet is scolded or disciplined, they tend to forgive and forget quickly.
-            They are there for their owners through good times and bad, offering comfort and support.
-        </p>
-    </div>
-    <div style="background-image: url(../cover-img.jpg); background-size: cover;" class="p-5">
-        <h2 class="text-center mb-5">Better and Longer Life</h2>
-        <p class="fs-4 lh-lg">Studies have shown that owning a pet can have numerous health benefits for their owners.
-            Interacting with pets can help reduce stress, lower blood pressure, and release endorphins (feel-good
-            hormones) in the brain. Additionally, the companionship of a pet can reduce feelings of loneliness and
-            depression, leading to improved mental well-being. The act of caring for a pet also encourages physical
-            activity and can promote a sense of purpose and routine in a person's life.
-        </p>
-    </div>
-    <div id="carouselExampleIndicators" class="carousel slide bg-success-subtle">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item text-center mt-5 mb-5 active">
-                <h2>Choose Team Cat if you:</h2>
-                <ul class="m-5 fs-4">
-                    <li>Enjoy quiet weekends curled up with a book</li>
-                    <li>Prefer independent pets that don't need as much attention</li>
-                    <li>Like your pets to be really fluffy and cute</li>
-                </ul>
+        <% if (successFlash && successFlash.length) { %>
+            <div class="flash-success bg-success text-white text-center fs-4 p-5">
+                <%= successFlash[0] %>
             </div>
-            <div class="carousel-item text-center mt-5 mb-5">
-                <h2>Choose Team Dog if you:</h2>
-                <ul class="m-5 fs-4">
-                    <li>Need a more active and playful companion</li>
-                    <li>Enjoy peace of mind by having an extra ear for danger</li>
-                    <li>Want to take a friend on hiking trips</li>
-                </ul>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-    <div class="container p-2">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card shadow-sm">
-                    <img src="../home-cat.jpg" class="card-img-top" alt="cat-pic" style="height: 600px;">
-                    <div class="card-body fs-5">
-                        <h5 class="card-title text-center">Cats</h5>
-                        <p>Advantages:</p>
-                        <ul>
-                            <li>Independent without much supervision</li>
-                            <li>Cute and fluffy fur is great for petting</li>
-                            <li>Said to have a sense for spiritual connections</li>
-                        </ul>
-                        <p>Disadvantages:</p>
-                        <ul>
-                            <li>Becomes less playful as time goes on</li>
-                            <li>Known to get stuck in tight or narrow spaces</li>
-                        </ul>
-                        <!--Set up pathing later-->
-                        <a href="/register" class="btn btn-success">Join Team Cat</a>
+            <% } %>
+                <div style="background-image: url(../top-img.jpg); background-position: center; background-size: cover; height: 100vh; position: relative;"
+                    class="p-5">
+                    <p style="position: absolute; top: 50%; left: 5%;" class="text-white fs-3 fst-italic">
+                        Find the friend that
+                    </p>
+                    <p style="position: absolute; top: 55%; left: 5%;" class="text-white fs-3 fst-italic">
+                        you've always wanted.
+                    </p>
+                </div>
+                <div class="container">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-6 fs-2 text-center">
+                            Do you...
+                        </div>
+                        <div class="col-md-6 fs-4 p-4">
+                            <ul style="list-style-type: circle;">
+                                <li>have a little bit of extra space in your home?</li>
+                                <li>like the idea of sharing your lifestyle (and maybe a secret handshake)?</li>
+                                <li>wish someone could come with you on longer trips?</li>
+                                <li>enjoy being with yourself, but would like something extra?</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card shadow-sm">
-                    <img src="../home-dog.jpg" class="card-img-top" alt="dog-pic" style="height: 600px;">
-                    <div class="card-body fs-5">
-                        <h5 class="card-title text-center">Dogs</h5>
-                        <p>Advantages:</p>
-                        <ul>
-                            <li>Playful, protective and fiercely loyal</li>
-                            <li>Great as companions on long trips</li>
-                            <li>Some breeds are natural hunters</li>
-                        </ul>
-                        <p>Disadvantages:</p>
-                        <ul>
-                            <li>Easily swayed by steaks and cookies</li>
-                            <li>Known to bark at dangerous plastic bags</li>
-                        </ul>
-                        <!--Set up pathing later-->
-                        <a href="/register" class="btn btn-success">Join Team Dog</a>
+                <div id="carouselExampleAutoplaying" class="carousel slide bg-success-subtle p-5"
+                    data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item mt-5 mb-5 active">
+                            <p class="fs-4 fst-italic lh-lg text-center">
+                                When I got Max from the pound, he just looked at me with those marbly eyes and a
+                                masterful puppydog face.
+                                Normally, I am immune to the I-am-cute thing from friends' pets, but
+                                I was smitten the second my eyes met his.
+                            </p>
+                            <p class="fs-4">
+                                - Darrel, 43
+                            </p>
+                        </div>
+                        <div class="carousel-item mt-5 mb-5">
+                            <p class="fs-4 fst-italic lh-lg text-center">
+                                I used to have bad nightmares from my time fighting overseas. Chica would always come to
+                                my bed whenever she heard me
+                                having an episode. Sometimes I even yelled at her for staring at me. But she always
+                                stayed by my side.
+                            </p>
+                            <p class="fs-4">
+                                - Conner, 32
+                            </p>
+                        </div>
+                        <div class="carousel-item mt-5 mb-5">
+                            <p class="fs-4 fst-italic lh-lg text-center">
+                                I can just do whatever I need to do and let her run around as she pleases. She comes
+                                back around dinnertime and
+                                lazes around the house. Sometimes she even sits with me while I read or watch TV. It's
+                                like she wants to
+                                spend time with me that way.
+                            </p>
+                            <p class="fs-4">
+                                - Grace, 26
+                            </p>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div style="background-image: url(../banner-img.jpg); background-size: cover;" class="p-5">
+                    <h2 class="text-center mb-5">Unforgettable Memories</h2>
+                    <p class="fs-4 lh-lg">
+                        We can all remember a time when a curious, fluffy face approached us and nestled its face
+                        into our chest. We couldn't help but pet it! Pets bring the possibility of wonderful,
+                        irreplaceable
+                        memories. From childhood friends to service animals that aid those in need, having one of these
+                        cute little furballs in your home definitely makes it feel more like a home!
+                    </p>
+                </div>
+                <div class="bg-success-subtle p-5">
+                    <h2 class="text-center mb-5">Unconditional Love</h2>
+                    <p class="fs-4 lh-lg">
+                        Pets don't judge their owners based on their appearance, flaws, or mistakes.
+                        They accept their human companions exactly as they are. Many even embrace them!
+                        Even when a pet is scolded or disciplined, they tend to forgive and forget quickly.
+                        They are there for their owners through good times and bad, offering comfort and support.
+                    </p>
+                </div>
+                <div style="background-image: url(../cover-img.jpg); background-size: cover;" class="p-5">
+                    <h2 class="text-center mb-5">Better and Longer Life</h2>
+                    <p class="fs-4 lh-lg">Studies have shown that owning a pet can have numerous health benefits for
+                        their owners.
+                        Interacting with pets can help reduce stress, lower blood pressure, and release endorphins
+                        (feel-good
+                        hormones) in the brain. Additionally, the companionship of a pet can reduce feelings of
+                        loneliness and
+                        depression, leading to improved mental well-being. The act of caring for a pet also encourages
+                        physical
+                        activity and can promote a sense of purpose and routine in a person's life.
+                    </p>
+                </div>
+                <div id="carouselExampleIndicators" class="carousel slide bg-success-subtle">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item text-center mt-5 mb-5 active">
+                            <h2>Choose Team Cat if you:</h2>
+                            <ul class="m-5 fs-4">
+                                <li>Enjoy quiet weekends curled up with a book</li>
+                                <li>Prefer independent pets that don't need as much attention</li>
+                                <li>Like your pets to be really fluffy and cute</li>
+                            </ul>
+                        </div>
+                        <div class="carousel-item text-center mt-5 mb-5">
+                            <h2>Choose Team Dog if you:</h2>
+                            <ul class="m-5 fs-4">
+                                <li>Need a more active and playful companion</li>
+                                <li>Enjoy peace of mind by having an extra ear for danger</li>
+                                <li>Want to take a friend on hiking trips</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="container p-2">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card shadow-sm">
+                                <img src="../home-cat.jpg" class="card-img-top" alt="cat-pic" style="height: 600px;">
+                                <div class="card-body fs-5">
+                                    <h5 class="card-title text-center">Cats</h5>
+                                    <p>Advantages:</p>
+                                    <ul>
+                                        <li>Independent without much supervision</li>
+                                        <li>Cute and fluffy fur is great for petting</li>
+                                        <li>Said to have a sense for spiritual connections</li>
+                                    </ul>
+                                    <p>Disadvantages:</p>
+                                    <ul>
+                                        <li>Becomes less playful as time goes on</li>
+                                        <li>Known to get stuck in tight or narrow spaces</li>
+                                    </ul>
+                                    <!--Set up pathing later-->
+                                    <a href="/register" class="btn btn-success">Join Team Cat</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card shadow-sm">
+                                <img src="../home-dog.jpg" class="card-img-top" alt="dog-pic" style="height: 600px;">
+                                <div class="card-body fs-5">
+                                    <h5 class="card-title text-center">Dogs</h5>
+                                    <p>Advantages:</p>
+                                    <ul>
+                                        <li>Playful, protective and fiercely loyal</li>
+                                        <li>Great as companions on long trips</li>
+                                        <li>Some breeds are natural hunters</li>
+                                    </ul>
+                                    <p>Disadvantages:</p>
+                                    <ul>
+                                        <li>Easily swayed by steaks and cookies</li>
+                                        <li>Known to bark at dangerous plastic bags</li>
+                                    </ul>
+                                    <!--Set up pathing later-->
+                                    <a href="/register" class="btn btn-success">Join Team Dog</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <footer class="bg-success-subtle p-2">
-        <p class="fs-5">&copy;Paws & Tails 2023</p>
-        <p>Photos by Charles Deluvio, Joe Caione, Raoul Droog, Milli and Andrew S. on Upsplash</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
+                <footer class="bg-success-subtle p-2">
+                    <p class="fs-5">&copy;Paws & Tails 2023</p>
+                    <p>Photos by Charles Deluvio, Joe Caione, Raoul Droog, Milli and Andrew S. on Upsplash</p>
+                </footer>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+                    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+                    crossorigin="anonymous"></script>
 </body>
 
 </html>
