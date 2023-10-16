@@ -70,6 +70,33 @@ app.get("/register", (req, res) => {
   res.render("register", { errorFlash });
 });
 
+app.get("/login", async (req, res) => {
+  const errorFlash = req.flash("error");
+  res.render("login", { errorFlash });
+});
+
+app.post("/login", async (req, res) => {
+  const user = await User.findOne({ email: req.body.email, password: req.body.password });
+  if (!user) {
+    req.flash("error", "Our server puppies couldn't find you! Try again.");
+    return res.redirect("/login");
+  } else {
+
+    const token = jwt.sign({ userId: user._id }, secret, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
+
+    try {
+      return res.redirect(302, `/user_profile?userId=${user._id}`);
+    } catch (err) {
+      req.flash("error", "Something happened. Our server puppies are on it!");
+      return res.redirect(302, "/login");
+    }
+  }
+});
+
 app.get("/user_profile", async (req, res) => {
   const user = await User.findById(req.query.userId);
   const token = req.cookies.token;
@@ -101,8 +128,6 @@ app.post("/register", async (req, res) => {
       preference: req.body.preference,
     });
 
-    console.log(newUser);
-
     const token = jwt.sign({ userId: newUser._id }, secret, {
       expiresIn: "1h",
     });
@@ -119,6 +144,16 @@ app.post("/register", async (req, res) => {
       return res.redirect(302, "/register");
     }
   }
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect(302, "/login");
+    }
+  });
 });
 
 app.listen(process.env.PORT || 8000, () => {
