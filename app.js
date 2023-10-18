@@ -76,12 +76,14 @@ app.get("/login", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const user = await User.findOne({ email: req.body.email, password: req.body.password });
+  const user = await User.findOne({
+    email: req.body.email,
+    password: req.body.password,
+  });
   if (!user) {
     req.flash("error", "Our server puppies couldn't find you! Try again.");
     return res.redirect("/login");
   } else {
-
     const token = jwt.sign({ userId: user._id }, secret, {
       expiresIn: "1h",
     });
@@ -98,22 +100,24 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/user_profile", async (req, res) => {
+  const errorFlash = req.flash("error");
+  const successFlash = req.flash("success");
   const user = await User.findById(req.query.userId);
   const token = req.cookies.token;
   jwt.verify(token, secret, (err, decoded) => {
     if (err || !user) {
-        res.redirect(302, "/register");
+      res.redirect(302, "/register");
     } else {
-        if (user._id == decoded.userId) {
-            res.render("user_profile", {user});
-        } else {
-            res.status(400).json({
-                error: err,
-                message: "Invalid user ID."
-            });
-        }
+      if (user._id == decoded.userId) {
+        res.render("user_profile", { user, errorFlash, successFlash });
+      } else {
+        res.status(400).json({
+          error: err,
+          message: "Invalid user ID.",
+        });
+      }
     }
-  })
+  });
 });
 
 app.post("/register", async (req, res) => {
@@ -123,8 +127,8 @@ app.post("/register", async (req, res) => {
     return res.redirect("/register");
   } else {
     const newUser = new User({
-      email: req.body.email,
-      password: req.body.password,
+      email: req.body.email.trim(),
+      password: req.body.password.trim(),
       preference: req.body.preference,
     });
 
@@ -147,11 +151,36 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  req.session.destroy(err => {
+  req.session.destroy((err) => {
     if (err) {
       console.log(err);
     } else {
       res.redirect(302, "/login");
+    }
+  });
+});
+
+app.post("/user_profile/edit", (req, res) => {
+  const token = req.cookies.token;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      const errorFlash = req.flash("error", "Session expired. Please login.");
+      return res.redirect(302, "/login");
+    } else {
+      const updatedData = {
+        email: req.body.email,
+        password: req.body.password,
+        preference: req.body.preference,
+      }
+      User.findOneAndUpdate({_id: decoded.userId}, updatedData).exec()
+      .then(user => {
+        console.log(user);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      const successFlash = req.flash("success", "Successfully updated!");
+      return res.redirect(302, `/user_profile?userId=${decoded.userId}`);
     }
   });
 });
