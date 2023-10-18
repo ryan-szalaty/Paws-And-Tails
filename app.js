@@ -185,6 +185,26 @@ app.post("/user_profile/edit", (req, res) => {
   });
 });
 
+app.get("/user_profile/delete", (req, res) => {
+  const token = req.cookies.token;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      const errorFlash = req.flash("error", "Session expired. Please login.");
+      return res.redirect(302, "/login");
+    } else {
+      User.findOneAndDelete({_id: decoded.userId}).exec()
+      .then(deletedUser => {
+        console.log(deletedUser);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      const successFlash = req.flash("success", "Successfully deleted!");
+      return res.redirect(302, "/login");
+    }
+  });
+})
+
 app.listen(process.env.PORT || 8000, () => {
   console.log(`Server listening on PORT ${process.env.PORT}.`);
 });
