@@ -62,17 +62,22 @@ connect();
 
 app.get("/", (req, res) => {
   const successFlash = req.flash("success", "Successfully Registered!");
-  res.render("index", { successFlash });
+  const token = req.cookies.token;
+  console.log(token);
+  res.render("index", { successFlash, token });
 });
 
 app.get("/register", (req, res) => {
   const errorFlash = req.flash("error");
-  res.render("register", { errorFlash });
+  const token = req.cookies.token;
+  res.render("register", { errorFlash, token });
 });
 
 app.get("/login", async (req, res) => {
   const errorFlash = req.flash("error");
-  res.render("login", { errorFlash });
+  const token = req.cookies.token;
+  console.log(token);
+  res.render("login", { errorFlash, token });
 });
 
 app.post("/login", async (req, res) => {
@@ -99,23 +104,18 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/user_profile", async (req, res) => {
+app.get("/user_profile", (req, res) => {
   const errorFlash = req.flash("error");
   const successFlash = req.flash("success");
-  const user = await User.findById(req.query.userId);
   const token = req.cookies.token;
   jwt.verify(token, secret, (err, decoded) => {
-    if (err || !user) {
+    if (err) {
       res.redirect(302, "/register");
     } else {
-      if (user._id == decoded.userId) {
-        res.render("user_profile", { user, errorFlash, successFlash });
-      } else {
-        res.status(400).json({
-          error: err,
-          message: "Invalid user ID.",
-        });
-      }
+      const user = User.findById(decoded.userId).exec()
+      .then(user => {
+        res.render("user_profile", { user, errorFlash, successFlash, token });
+      });
     }
   });
 });
@@ -141,7 +141,7 @@ app.post("/register", async (req, res) => {
     try {
       await newUser.save();
       req.flash("success", "User registration successful!");
-      return res.redirect(302, `/user_profile?userId=${newUser._id}`);
+      return res.redirect(302, "/user_profile");
     } catch (err) {
       console.log(err);
       req.flash("error", "Something happened. Our server puppies are on it!");
@@ -151,10 +151,12 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
+  const token = req.cookies.token;
   req.session.destroy((err) => {
     if (err) {
       console.log(err);
     } else {
+      res.clearCookie("token");
       res.redirect(302, "/login");
     }
   });
@@ -175,12 +177,12 @@ app.post("/user_profile/edit", (req, res) => {
       User.findOneAndUpdate({_id: decoded.userId}, updatedData).exec()
       .then(user => {
         console.log(user);
+        const successFlash = req.flash("success", "Successfully updated!");
+        return res.redirect(302, "/user_profile");
       })
       .catch(error => {
         console.log(error);
       });
-      const successFlash = req.flash("success", "Successfully updated!");
-      return res.redirect(302, `/user_profile?userId=${decoded.userId}`);
     }
   });
 });
