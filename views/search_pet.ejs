@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Paws & Tails</title>
+</head>
+
+<body>
+    <%- include('../partials/nav') %>
+        <div class="container-fluid">
+            <h2>Let's find the best companion for you.</h2>
+            <p>Choose whether you'd like to search for cats or dogs.</p>
+            <p>Only one at a time, please!</p>
+            <button id="catButton">Cats</button>
+            <button id="dogButton">Dogs</button>
+            <p>Next, choose a breed to learn more about it:</p>
+            <div id="petSearch" class="d-none justify-content-between">
+                <div class="left">
+                    <ul id="breedList">
+
+                    </ul>
+                </div>
+                <div class="right">
+                    <div class="card" style="width: 18rem;">
+                        <img id="cardImage" src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 id="name" class="card-title">Cool Pet</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li id="lifeSpan" class="list-group-item">Life Span: 14</li>
+                            <li id="temperament" class="list-group-item">Temperament: Chill</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="bg-success-subtle p-2">
+            <p class="fs-5">&copy;Paws & Tails 2023</p>
+        </footer>
+        <!--Script for buttons-->
+        <script>
+            const catButton = document.getElementById("catButton");
+            const dogButton = document.getElementById("dogButton");
+            const breedList = document.getElementById("breedList");
+            const petSearch = document.getElementById("petSearch");
+            const cardImage = document.getElementById("cardImage");
+            const nameElement = document.getElementById("name");
+            const lifeSpanElement = document.getElementById("lifeSpan");
+            const temperamentElement = document.getElementById("temperament");
+            const linkElement = document.getElementById("link");
+            let breeds = [];
+            let setting = "";
+
+            catButton.addEventListener("click", async () => {
+                try {
+                    const response = await fetch("https://api.thecatapi.com/v1/breeds");
+                    breeds = await response.json();
+                    console.log(breeds);
+
+                    breedList.innerHTML = "";
+
+                    breeds.forEach(breed => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = breed.name;
+                        listItem.style.cursor = "pointer";
+                        breedList.appendChild(listItem);
+                    });
+                    cardImage.src = "../home-cat.jpg";
+                    setting = "cats"
+                    petSearch.classList.replace("d-none", "d-flex");
+                } catch (error) {
+                    breedList.innerHTML = "Error finding cat breeds.";
+                }
+            });
+
+            dogButton.addEventListener("click", async () => {
+                try {
+                    const response = await fetch("https://api.thedogapi.com/v1/breeds");
+                    breeds = await response.json();
+                    console.log(breeds);
+
+                    breedList.innerHTML = "";
+
+                    breeds.forEach(breed => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = breed.name;
+                        listItem.style.cursor = "pointer";
+                        breedList.appendChild(listItem);
+                    });
+                    cardImage.src = "../home-dog.jpg";
+                    setting = "dogs"
+                    petSearch.classList.replace("d-none", "d-flex");
+                } catch (error) {
+                    breedList.innerHTML = "Error finding dog breeds.";
+                }
+            });
+
+            breedList.addEventListener("click", (event) => {
+                const clickedBreedName = event.target.textContent;
+                const selectedBreed = breeds.find((breed) => breed.name === clickedBreedName);
+                let image_url = "";
+                if (setting === "cats") {
+                    image_url = "https://cdn2.thecatapi.com/images/"
+                } else {
+                    image_url = "https://cdn2.thedogapi.com/images/"
+                }
+                if (selectedBreed) {
+                    cardImage.src = image_url + selectedBreed.reference_image_id + ".jpg";
+                    console.log(cardImage.src);
+                    nameElement.textContent = selectedBreed.name;
+                    lifeSpanElement.textContent = `Life Span: ${selectedBreed.life_span}`;
+                    temperamentElement.textContent = `Temperament: ${selectedBreed.temperament}`;
+                }
+            })
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>

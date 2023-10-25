@@ -120,6 +120,16 @@ app.get("/user_profile", (req, res) => {
   });
 });
 
+app.get("/search_pet", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    res.render("search_pet", {token});
+  } catch(err) {
+    console.log(err);
+    res.render("search_pet", {token});
+  }
+});
+
 app.post("/register", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   if (user) {
