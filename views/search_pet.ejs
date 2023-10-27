@@ -2,41 +2,44 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <title>Paws & Tails</title>
 </head>
 
 <body>
     <%- include('../partials/nav') %>
         <div class="container-fluid">
-            <h2>Let's find the best companion for you.</h2>
-            <p>Choose whether you'd like to search for cats or dogs.</p>
-            <p>Only one at a time, please!</p>
-            <button id="catButton">Cats</button>
-            <button id="dogButton">Dogs</button>
-            <p>Next, choose a breed to learn more about it:</p>
-            <div id="petSearch" class="d-none justify-content-between">
-                <div class="left">
-                    <ul id="breedList">
-
-                    </ul>
-                </div>
-                <div class="right">
-                    <div class="card" style="width: 18rem;">
-                        <img id="cardImage" src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 id="name" class="card-title">Cool Pet</h5>
+            <div class="w-50 mx-auto d-flex justify-content-between mb-5">
+                <button id="catButton" class="btn btn-success fs-3">Cats</button>
+                <button id="dogButton" class="btn btn-success fs-3">Dogs</button>
+            </div>
+            <div id="petSearch" class="container d-none">
+                <div class="row">
+                    <div class="col-md-6">
+                        <select id="breedDropdown" class="w-100 mx-auto mb-5">
+                            <option value="">Choose a Breed</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mx-auto w-75 mb-5 text-center" style="width: 400px;">
+                            <img id="cardImage" src="..." class="card-img-top" alt="..." style="height: 400px;" />
+                            <div class="card-body">
+                                <h5 id="name" class="card-title fs-3" style="height: 100;">Cool Pet</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li id="lifeSpan" class="list-group-item fs-5">Life Span: 14</li>
+                                <li id="temperament" class="list-group-item fs-5">
+                                    Temperament: Chill
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li id="lifeSpan" class="list-group-item">Life Span: 14</li>
-                            <li id="temperament" class="list-group-item">Temperament: Chill</li>
-                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <footer class="bg-success-subtle p-2">
             <p class="fs-5">&copy;Paws & Tails 2023</p>
@@ -45,7 +48,7 @@
         <script>
             const catButton = document.getElementById("catButton");
             const dogButton = document.getElementById("dogButton");
-            const breedList = document.getElementById("breedList");
+            const breedDropdown = document.getElementById("breedDropdown");
             const petSearch = document.getElementById("petSearch");
             const cardImage = document.getElementById("cardImage");
             const nameElement = document.getElementById("name");
@@ -61,19 +64,19 @@
                     breeds = await response.json();
                     console.log(breeds);
 
-                    breedList.innerHTML = "";
+                    breedDropdown.innerHTML = "";
 
-                    breeds.forEach(breed => {
-                        const listItem = document.createElement("li");
-                        listItem.textContent = breed.name;
-                        listItem.style.cursor = "pointer";
-                        breedList.appendChild(listItem);
+                    breeds.forEach((breed) => {
+                        const option = document.createElement("option");
+                        option.value = breed.name;
+                        option.textContent = breed.name;
+                        breedDropdown.appendChild(option);
                     });
                     cardImage.src = "../home-cat.jpg";
-                    setting = "cats"
+                    setting = "cats";
                     petSearch.classList.replace("d-none", "d-flex");
                 } catch (error) {
-                    breedList.innerHTML = "Error finding cat breeds.";
+                    breedDropdown.innerHTML = "Error finding cat breeds.";
                 }
             });
 
@@ -83,30 +86,32 @@
                     breeds = await response.json();
                     console.log(breeds);
 
-                    breedList.innerHTML = "";
+                    breedDropdown.innerHTML = "";
 
-                    breeds.forEach(breed => {
-                        const listItem = document.createElement("li");
-                        listItem.textContent = breed.name;
-                        listItem.style.cursor = "pointer";
-                        breedList.appendChild(listItem);
+                    breeds.forEach((breed) => {
+                        const option = document.createElement("option");
+                        option.value = breed.name;
+                        option.textContent = breed.name;
+                        breedDropdown.appendChild(option);
                     });
                     cardImage.src = "../home-dog.jpg";
-                    setting = "dogs"
+                    setting = "dogs";
                     petSearch.classList.replace("d-none", "d-flex");
                 } catch (error) {
-                    breedList.innerHTML = "Error finding dog breeds.";
+                    breedDropdown.innerHTML = "Error finding dog breeds.";
                 }
             });
 
-            breedList.addEventListener("click", (event) => {
-                const clickedBreedName = event.target.textContent;
-                const selectedBreed = breeds.find((breed) => breed.name === clickedBreedName);
+            breedDropdown.addEventListener("change", (event) => {
+                const clickedBreedName = breedDropdown.value;
+                const selectedBreed = breeds.find(
+                    (breed) => breed.name === clickedBreedName
+                );
                 let image_url = "";
                 if (setting === "cats") {
-                    image_url = "https://cdn2.thecatapi.com/images/"
+                    image_url = "https://cdn2.thecatapi.com/images/";
                 } else {
-                    image_url = "https://cdn2.thedogapi.com/images/"
+                    image_url = "https://cdn2.thedogapi.com/images/";
                 }
                 if (selectedBreed) {
                     cardImage.src = image_url + selectedBreed.reference_image_id + ".jpg";
@@ -115,7 +120,7 @@
                     lifeSpanElement.textContent = `Life Span: ${selectedBreed.life_span}`;
                     temperamentElement.textContent = `Temperament: ${selectedBreed.temperament}`;
                 }
-            })
+            });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
